@@ -2,9 +2,9 @@
 #include <fstream>
 #include <iostream>
 
-#define SCALE 1
+#define SCALE 2
 
-int n = 5000;
+int n = 10000;
 
 struct loc {
     float x;
@@ -27,8 +27,11 @@ class Plain {
 
         int count = 255;
         for (int i = 0; i < 255; i++) {
-            if (std::norm(z) > 4) {
+            int norm = std::norm(z);
+            if (norm > 4) {
                 break;
+            } else if (norm == 4) {
+                return -1;
             } else {
                 z = z * z + c;
                 count--;
@@ -49,7 +52,12 @@ int main() {
         for (int i = 0; i < n * 2; i++) {
             for (int j = 0; j < n * 2; j++) {
                 Plain obj(j, i);
-                file << 0 << " " << 0 << " " << int(0.8 * obj.blue()) << '\n';
+                int val = obj.blue();
+                if (val == -1) {
+                    file << 255 << " " << 255 << " " << 255 << '\n';
+                } else {
+                    file << 0 << " " << 0 << " " << int(0.3 * val) << '\n';
+                }
                 std::cout << (float(i * n * 2 + j) / float(n * n * 4)) * 100
                           << '\n';
             }
