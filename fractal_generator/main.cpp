@@ -20,7 +20,7 @@ class Plain {
 
     int blue() {
         float x_co = (point.x - n) / float(n) * SCALE;
-        float y_co = (point.y - n) / float(n) * SCALE;
+        float y_co = -(point.y - n) / float(n) * SCALE;
 
         std::complex<double> z(0, 0);
         std::complex<double> c(x_co, y_co);
